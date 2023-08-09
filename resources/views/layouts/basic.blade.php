@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ asset('img/icon.png') }}">
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+        @yield('style-file')
+        <title>Gestão Bovinos - @yield('title')</title>
+    </head>
+    <body>
+        @include('layouts._partials.header')
+        @yield('content')
+
+        <script href="{{ asset('js/bootstrap.min.js') }}"></script>
+    </body>
+</html>

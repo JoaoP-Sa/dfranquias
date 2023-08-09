@@ -1,0 +1,30 @@
+/* global style */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100;300;400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #ebebeb;
+}
+
+header {
+    background-color: #b40000;
+    padding: 1rem 0;
+}
+
+header img {
+    height: 3rem;
+}
+
+.active {
+    color: rgb(0, 0, 0) !important;
+    font-weight: bold;
+}
