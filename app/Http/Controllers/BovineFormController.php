@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class BovineFormController extends Controller
 {
@@ -11,23 +12,19 @@ class BovineFormController extends Controller
         return view('pages.form', $variables);
     }
 
-    public function register()
+    public function getForm(Request $request)
     {
-        $title = 'Cadastro';
-        $action = 'Adicionar';
+        $animal = $request->id;
 
-        $variables = compact('title', 'action');
+        $title = $animal ? 'Edição' : 'Cadastro';
+        $buttonText = $animal ? 'Atualizar' : 'Adicionar';
+
+        $variables = compact('animal', 'title', 'buttonText');
 
         return $this->returnView($variables);
     }
 
-    public function edit()
-    {
-        $title = 'Edição';
-        $action = 'Editar';
-
-        $variables = compact('title', 'action');
-
-        return $this->returnView($variables);
+    public function sendInfo(Request $request) {
+        dd($request->id);
     }
 }

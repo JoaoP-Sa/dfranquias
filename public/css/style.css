@@ -36,7 +36,7 @@ header .underline {
     width: 100%;
 }
 
-.active {
+header .active {
     background-color: rgb(130, 0, 0);
     padding-bottom: 1.5rem;
     font-weight: bold;

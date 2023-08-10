@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class BovineTableController extends Controller
 {
     private function returnView($variables)
     {
+        $variables['route'] = Route::currentRouteName();
+
         return view('pages.bovine-table', $variables);
     }
 
