@@ -1,11 +1,11 @@
-<header>
+<header style="padding: {{ Route::currentRouteName() === 'edit' ? '.8rem 0' : '.6rem 0' }}">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-between">
         <a href="{{ route('home') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <img src="{{ asset('img/logo.png') }}" alt="">
         </a>
 
-        <ul class="nav">
+        <ul class="nav" style="top: {{ Route::currentRouteName() === 'edit' ? '0' : '.8rem' }}">
             <li>
                 <a href="{{ route('home') }}"
                    class="nav-link text-white {{ Route::currentRouteName() === 'home' ? 'active' : '' }}"
@@ -37,4 +37,6 @@
         </ul>
       </div>
     </div>
+
+    <div class="underline"></div>
 </header>

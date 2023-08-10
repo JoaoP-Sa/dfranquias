@@ -17,14 +17,27 @@ html, body {
 
 header {
     background-color: #b40000;
-    padding: 1rem 0;
+    position: relative;
+}
+
+header ul {
+    position: relative;
 }
 
 header img {
     height: 3rem;
 }
 
+header .underline {
+    padding: .2rem 0;
+    background-color: rgb(130, 0, 0);
+    position: absolute;
+    bottom: -.2rem;
+    width: 100%;
+}
+
 .active {
-    color: rgb(0, 0, 0) !important;
+    background-color: rgb(130, 0, 0);
+    padding-bottom: 1.5rem;
     font-weight: bold;
 }
