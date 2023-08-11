@@ -2,31 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bovinos;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 class BovineTableController extends Controller
 {
-    private function returnView($variables)
-    {
-        $variables['route'] = Route::currentRouteName();
+    private $bovinos;
 
-        return view('pages.bovine-table', $variables);
+    public function __construct(Bovinos $bovinos) {
+        $this->bovinos = $bovinos;
     }
-
     public function showAll()
     {
         $title = 'Todos os Animais';
-        $variables = compact('title');
+        $bovinesList = $this->bovinos->all()->toArray();
 
-        return $this->returnView($variables);
+        return view('pages.all-bovines', compact('title', 'bovinesList'));
     }
 
     public function showShootDown()
     {
-        $title = 'Animais Para Abate';
-        $variables = compact('title');
+        $title = 'Animais Abatidos e Para Abate';
+        $bovinesList = [];
 
-        return $this->returnView($variables);
+        return view('pages.shoot-down-bovines', compact('title', 'bovinesList'));
     }
 }

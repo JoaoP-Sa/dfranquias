@@ -41,3 +41,8 @@ header .active {
     padding-bottom: 1.5rem;
     font-weight: bold;
 }
+
+.danger {
+    color: rgb(228, 91, 91);
+    font-weight: bold;
+}

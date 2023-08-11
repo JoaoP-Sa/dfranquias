@@ -13,6 +13,8 @@
         @include('layouts._partials.header')
         @yield('content')
 
-        <script href="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/test.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     </body>
 </html>

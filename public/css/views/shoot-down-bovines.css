@@ -3,6 +3,14 @@
     border-color: transparent !important;
 }
 
+.tab:not(.show) {
+    display: none;
+}
+
+.tab {
+    background-color: inherit !important;
+}
+
 .list-group-item {
     border-radius: 0 !important;
 }
