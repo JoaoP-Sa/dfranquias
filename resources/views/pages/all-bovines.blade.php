@@ -12,4 +12,7 @@
         @component('layouts._partials.table', ['bovinesList' => $bovinesList])
         @endcomponent
     </div>
+
+    @component('layouts._partials.confirm-modal')
+    @endcomponent
 @endsection

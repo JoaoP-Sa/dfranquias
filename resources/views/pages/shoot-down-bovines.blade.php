@@ -29,17 +29,21 @@
                     </div>
                 </div>
                 <div id="shoot-bovines" class="col-md-9 active show tab">
-                    @component('layouts._partials.table', ['bovinesList' => $bovinesList])
+                    <h2>Animais Para Abate</h2>
+                    @component('layouts._partials.table', ['bovinesList' => $aliveBovinesListToShootDown, 'shootDown' => true])
                     @endcomponent
-
-                    {{-- <h2 id="shoot-bovines" aria-labelledby="shoot-bovines-tab" class="active show">1</h2>
-                    <h2 id="shoot-bovines-report" aria-labelledby="shoot-bovines-report-tab">2</h2> --}}
                 </div>
 
                 <div id="shoot-bovines-report" class="col-md-9 tab">
                     <h2>relatorio</h2>
+
+                    @component('layouts._partials.table', ['bovinesList' => $shootedDownBovinesList])
+                    @endcomponent
                 </div>
             </div>
         </div>
+
+        @component('layouts._partials.confirm-modal')
+        @endcomponent
     </section>
 @endsection

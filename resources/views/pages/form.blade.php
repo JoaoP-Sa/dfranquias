@@ -17,7 +17,7 @@
                    id="code"
                    name="code"
                    placeholder="Insira o Código do Animal"
-                   value="{{ old('code') }}"
+                   value="{{ old('code') ?? ($animalInfo->code ?? '') }}"
                    >
             <span class="danger">{{ $errors->first('code') ?? '' }}</span>
         </div>
@@ -28,7 +28,7 @@
                    id="milk"
                    name="milk"
                    placeholder="Insira a Produção de Leite Semanal do Animal"
-                   value="{{ old('milk') }}"
+                   value="{{ old('milk') ?? ($animalInfo->milk ?? '') }}"
                    >
             <span class="danger">{{ $errors->first('milk') ?? '' }}</span>
         </div>
@@ -39,7 +39,7 @@
                    id="food"
                    name="food"
                    placeholder="Insira o Consumo de Ração Semanal do Animal"
-                   value="{{ old('food') }}"
+                   value="{{ old('food') ?? ($animalInfo->food ?? '') }}"
                    >
             <span class="danger">{{ $errors->first('food') ?? '' }}</span>
         </div>
@@ -50,7 +50,7 @@
                    id="weight"
                    name="weight"
                    placeholder="Insira o Peso do Animal (Kg)"
-                   value="{{ old('weight') }}"
+                   value="{{ old('weight') ?? ($animalInfo->weight ?? '') }}"
                    >
             <span class="danger">{{ $errors->first('weight') ?? '' }}</span>
         </div>
@@ -60,7 +60,7 @@
                    class="form-control"
                    id="born"
                    name="born" placeholder="Insira a Data de Nascimento do Animal"
-                   value="{{ old('born') }}"
+                   value="{{ old('born') ?? ($animalInfo->born ?? '') }}"
                    >
             <span class="danger">{{ $errors->first('born') ?? '' }}</span>
         </div>

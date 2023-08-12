@@ -20,15 +20,21 @@ class BovineFormController extends Controller
         return view('pages.form', $variables);
     }
 
-    public function getForm(Request $request)
+    /**
+     * @param int $animal
+     */
+    public function getForm(Request $request, $animal = null)
     {
-        $animal = $request->id;
-
         $title = $animal ? 'Edição' : 'Cadastro';
         $buttonText = $animal ? 'Atualizar' : 'Adicionar';
         $msg = '';
 
         $variables = compact('animal', 'title', 'msg', 'buttonText');
+
+        if ($animal) {
+            $animalInfo = $this->bovinos->find($animal);
+            $variables['animalInfo'] = $animalInfo;
+        }
 
         return $this->returnView($variables);
     }
@@ -58,7 +64,9 @@ class BovineFormController extends Controller
         $animal = $request->id;
 
         if($animal){
-            return redirect()->route('home');
+            $this->bovinos->find($animal)->update($request->all());
+
+            return redirect()->route('all-bovines');
         }
 
         $insertValues = array_filter($request->all(), function($value) { return $value !== null; });
@@ -72,5 +80,23 @@ class BovineFormController extends Controller
         $variables = compact('title', 'msg', 'buttonText');
 
         return $this->returnView($variables);
+    }
+
+    /**
+     * @param int $animal
+     */
+    public function shootDownBovine(Request $request, $animal) {
+        $this->bovinos->find($animal)->update(['shooted_down' => true]);
+
+        return redirect()->route('shoot-down-bovines');
+    }
+
+    /**
+     * @param int $animal
+     */
+    public function deleteBovine(Request $request, $animal) {
+        $this->bovinos->destroy($animal);
+
+        return redirect()->route($request->route_name);
     }
 }

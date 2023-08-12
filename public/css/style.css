@@ -20,6 +20,11 @@ header {
     position: relative;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 header ul {
     position: relative;
 }

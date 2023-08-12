@@ -16,5 +16,19 @@
         <script src="{{ asset('js/test.js') }}"></script>
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script>
+            const modalTitleEl = document.getElementById('modalTitle');
+            const confirmModalEl = document.getElementById('confirmModal');
+
+            const setModalInfo = (animalID, method, routeName = null) => {
+                modalTitleEl.innerText = method === 'GET' ? 'Excluir' : 'Abater';
+
+                confirmModalEl.method = method;
+                confirmModalEl.action =
+                    `${window.location.origin}/${animalID}/${method === 'GET' ? 'excluir' : 'abater'}-bovino${routeName ? '/'+routeName : ''}`;
+
+                console.log(confirmModalEl);
+            }
+        </script>
     </body>
 </html>

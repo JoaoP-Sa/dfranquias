@@ -25,3 +25,6 @@ Route::post('/adicionar-bovino', [BovineFormController::class, 'sendInfo'])->nam
 
 Route::get('/{id}/editar-bovino', [BovineFormController::class, 'getForm'])->name('edit');
 Route::put('/{id}/editar-bovino', [BovineFormController::class, 'sendInfo'])->name('edit');
+
+Route::get('/{id}/excluir-bovino/{route_name}', [BovineFormController::class, 'deleteBovine'])->name('delete');
+Route::post('/{id}/abater-bovino', [BovineFormController::class, 'shootDownBovine'])->name('shoot-down');

@@ -19,15 +19,27 @@
                 <td>{{ $bovine['weight'] }} Kg</td>
                 <td>{{ $bovine['born'] }}</td>
                 <td class="text-center">
+                    @if(!$bovine['shooted_down'])
                     <button class="btn btn-dark">
                         <a href="{{ route('edit', ['id' => $bovine['id']]) }}">Editar</a>
                     </button>
-                    @if(Route::currentRouteName() === 'shoot-down-bovines')
-                        <button class="btn btn-dark">
+                    @endif
+                    @if(isset($shootDown))
+                        <button type="button"
+                                class="btn btn-dark"
+                                data-bs-toggle="modal"
+                                data-bs-target="#actionModal"
+                                onclick="setModalInfo({{ $bovine['id'] }}, 'POST')"
+                                >
                             Abater
                         </button>
                     @endif
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button"
+                            class="btn btn-dark"
+                            data-bs-toggle="modal"
+                            data-bs-target="#actionModal"
+                            onclick="setModalInfo({{ $bovine['id'] }},'GET', '{{ Route::currentRouteName() }}')"
+                            >
                         Excluir
                     </button>
                 </td>
@@ -40,5 +52,3 @@
         </tbody>
     @endif
 </table>
-@component('layouts._partials.confirm-modal')
-@endcomponent
