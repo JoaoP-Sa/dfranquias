@@ -20,9 +20,11 @@
                 <td>{{ $bovine['born'] }}</td>
                 <td class="text-center">
                     @if(!$bovine['shooted_down'])
-                    <button class="btn btn-dark">
-                        <a href="{{ route('edit', ['id' => $bovine['id']]) }}">Editar</a>
-                    </button>
+                    <a href="{{ route('edit', ['id' => $bovine['id']]) }}">
+                        <button class="btn btn-dark">
+                            Editar
+                        </button>
+                    </a>
                     @endif
                     @if(isset($shootDown))
                         <button type="button"

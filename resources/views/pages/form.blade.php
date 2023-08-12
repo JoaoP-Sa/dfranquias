@@ -1,12 +1,22 @@
 @extends('layouts.basic')
 @section('title', $title)
 
+@php
+    $previousValues = Session::get('previous_values');
+    $previousAnimalID = Session::get('animal_id');
+@endphp
+
 @section('content')
     {{ $msg }}
-    <form class="container py-4" method="POST" action="{{ !isset($animal) || !$animal ? route('register') : route('edit', ['id' => $animal]) }}">
+    <form class="container py-4"
+          method="POST"
+          action="{{ (!isset($animal) || !$animal) && !$previousAnimalID
+                        ? route('register')
+                        : route('edit', ['id' => $animal ?? $previousAnimalID]) }}"
+        >
         @csrf
 
-        @if(isset($animal) && $animal)
+        @if((isset($animal) && $animal) || isset($previousAnimalID))
             @method('PUT')
         @endif
 
@@ -17,7 +27,7 @@
                    id="code"
                    name="code"
                    placeholder="Insira o Código do Animal"
-                   value="{{ old('code') ?? ($animalInfo->code ?? '') }}"
+                   value="{{ old('code') ?? $animalInfo->code ?? $previousValues['code'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('code') ?? '' }}</span>
         </div>
@@ -28,7 +38,7 @@
                    id="milk"
                    name="milk"
                    placeholder="Insira a Produção de Leite Semanal do Animal"
-                   value="{{ old('milk') ?? ($animalInfo->milk ?? '') }}"
+                   value="{{ old('milk') ?? $animalInfo->milk ?? $previousValues['milk'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('milk') ?? '' }}</span>
         </div>
@@ -39,7 +49,7 @@
                    id="food"
                    name="food"
                    placeholder="Insira o Consumo de Ração Semanal do Animal"
-                   value="{{ old('food') ?? ($animalInfo->food ?? '') }}"
+                   value="{{ old('food') ?? $animalInfo->food ?? $previousValues['food'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('food') ?? '' }}</span>
         </div>
@@ -50,7 +60,7 @@
                    id="weight"
                    name="weight"
                    placeholder="Insira o Peso do Animal (Kg)"
-                   value="{{ old('weight') ?? ($animalInfo->weight ?? '') }}"
+                   value="{{ old('weight') ?? $animalInfo->weight ?? $previousValues['weight'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('weight') ?? '' }}</span>
         </div>
@@ -60,7 +70,7 @@
                    class="form-control"
                    id="born"
                    name="born" placeholder="Insira a Data de Nascimento do Animal"
-                   value="{{ old('born') ?? ($animalInfo->born ?? '') }}"
+                   value="{{ old('born') ?? $animalInfo->born ?? $previousValues['born'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('born') ?? '' }}</span>
         </div>
@@ -68,4 +78,6 @@
             <button type="submit">{{ $buttonText }}</button>
         </div>
     </form>
+
+    {{ $previousAnimalID }}
 @endsection

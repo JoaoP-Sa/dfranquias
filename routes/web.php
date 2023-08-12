@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BovineFormController;
+use App\Http\Controllers\BovineCRUDController;
 use App\Http\Controllers\BovineTableController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -20,11 +20,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/todos', [BovineTableController::class, 'showAll'])->name('all-bovines');
 Route::get('/abate', [BovineTableController::class, 'showShootDown'])->name('shoot-down-bovines');
 
-Route::get('/adicionar-bovino', [BovineFormController::class, 'getForm'])->name('register');
-Route::post('/adicionar-bovino', [BovineFormController::class, 'sendInfo'])->name('register');
+Route::get('/adicionar-bovino', [BovineCRUDController::class, 'getForm'])->name('register');
+Route::post('/adicionar-bovino', [BovineCRUDController::class, 'sendInfo'])->name('register');
 
-Route::get('/{id}/editar-bovino', [BovineFormController::class, 'getForm'])->name('edit');
-Route::put('/{id}/editar-bovino', [BovineFormController::class, 'sendInfo'])->name('edit');
+Route::get('/{id}/editar-bovino', [BovineCRUDController::class, 'getForm'])->name('edit');
+Route::put('/{id}/editar-bovino', [BovineCRUDController::class, 'sendInfo'])->name('edit');
 
-Route::get('/{id}/excluir-bovino/{route_name}', [BovineFormController::class, 'deleteBovine'])->name('delete');
-Route::post('/{id}/abater-bovino', [BovineFormController::class, 'shootDownBovine'])->name('shoot-down');
+Route::get('/{id}/excluir-bovino/{route_name}', [BovineCRUDController::class, 'deleteBovine'])->name('delete');
+Route::post('/{id}/abater-bovino', [BovineCRUDController::class, 'shootDownBovine'])->name('shoot-down');

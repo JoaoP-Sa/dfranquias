@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-class BovineFormController extends Controller
+class BovineCRUDController extends Controller
 {
     private $bovinos;
 
@@ -60,13 +60,22 @@ class BovineFormController extends Controller
         ];
 
         $request->validate($rules, $feedback);
-
         $animal = $request->id;
 
         if($animal){
             $this->bovinos->find($animal)->update($request->all());
 
             return redirect()->route('all-bovines');
+        }
+
+        if ($this->bovinos->where('code',$request->code)->get()->count()) {
+            $title = $animal ? 'Edição' : 'Cadastro';
+            $msg = 'Já existe um animal cadastrado com este código.';
+            $buttonText = $animal ? 'Atualizar' : 'Adicionar';
+
+            $variables = compact('title', 'msg', 'buttonText');
+
+            return $this->returnView($variables);
         }
 
         $insertValues = array_filter($request->all(), function($value) { return $value !== null; });
