@@ -29,6 +29,10 @@ class BovineCRUDController extends Controller
         $buttonText = $animal ? 'Atualizar' : 'Adicionar';
         $msg = '';
 
+        if (!$animal) {
+            $request->session()->flush();
+        }
+
         $variables = compact('animal', 'title', 'msg', 'buttonText');
 
         if ($animal) {
@@ -62,12 +66,6 @@ class BovineCRUDController extends Controller
         $request->validate($rules, $feedback);
         $animal = $request->id;
 
-        if($animal){
-            $this->bovinos->find($animal)->update($request->all());
-
-            return redirect()->route('all-bovines');
-        }
-
         if ($this->bovinos->where('code',$request->code)->get()->count()) {
             $title = $animal ? 'Edição' : 'Cadastro';
             $msg = 'Já existe um animal cadastrado com este código.';
@@ -75,7 +73,17 @@ class BovineCRUDController extends Controller
 
             $variables = compact('title', 'msg', 'buttonText');
 
+            $request->session()->put('previous_values', $request->all());
+            $request->session()->put('animal_id', $animal);
+
             return $this->returnView($variables);
+        }
+
+        if($animal){
+            $this->bovinos->find($animal)->update($request->all());
+
+            $request->session()->flush();
+            return redirect()->route('all-bovines');
         }
 
         $insertValues = array_filter($request->all(), function($value) { return $value !== null; });

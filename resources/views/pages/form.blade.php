@@ -79,5 +79,5 @@
         </div>
     </form>
 
-    {{ $previousAnimalID }}
+    {{ print_r(Session::get('previous_values')) }}
 @endsection
