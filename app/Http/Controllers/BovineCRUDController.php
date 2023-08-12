@@ -30,7 +30,7 @@ class BovineCRUDController extends Controller
         $msg = '';
 
         if (!$animal) {
-            $request->session()->flush();
+            $request->session()->forget('previous_values');
         }
 
         $variables = compact('animal', 'title', 'msg', 'buttonText');
@@ -66,7 +66,9 @@ class BovineCRUDController extends Controller
         $request->validate($rules, $feedback);
         $animal = $request->id;
 
-        if ($this->bovinos->where('code',$request->code)->get()->count()) {
+        $someAnimalWithSameCode = $this->bovinos->where('code',$request->code)->get()->toArray();
+
+        if (count($someAnimalWithSameCode) && $someAnimalWithSameCode[0]['id'] != $animal) {
             $title = $animal ? 'Edição' : 'Cadastro';
             $msg = 'Já existe um animal cadastrado com este código.';
             $buttonText = $animal ? 'Atualizar' : 'Adicionar';
@@ -87,7 +89,6 @@ class BovineCRUDController extends Controller
         }
 
         $insertValues = array_filter($request->all(), function($value) { return $value !== null; });
-
         $this->bovinos->create($insertValues);
 
         $title = 'Cadastro';

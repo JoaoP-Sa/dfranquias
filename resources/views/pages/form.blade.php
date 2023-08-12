@@ -78,6 +78,4 @@
             <button type="submit">{{ $buttonText }}</button>
         </div>
     </form>
-
-    {{ print_r(Session::get('previous_values')) }}
 @endsection
