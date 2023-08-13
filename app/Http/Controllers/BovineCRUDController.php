@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Bovinos;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 class BovineCRUDController extends Controller
 {
@@ -31,6 +30,7 @@ class BovineCRUDController extends Controller
 
         if (!$animal) {
             $request->session()->forget('previous_values');
+            $request->session()->forget('animal_id');
         }
 
         $variables = compact('animal', 'title', 'msg', 'buttonText');

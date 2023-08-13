@@ -1,16 +1,21 @@
-@extends('layouts.basic')
-@section('title', $title)
-
 @php
     $previousValues = Session::get('previous_values');
     $previousAnimalID = Session::get('animal_id');
+
+    $checkIfIsRegisterForm = (!isset($animal) || !$animal) && !$previousAnimalID;
 @endphp
+
+@extends('layouts.basic', [
+    'introTitle' => ($checkIfIsRegisterForm ? 'Cadastrar' : 'Editar').' Animal',
+    'introDescription' => null
+])
+@section('title', $title)
 
 @section('content')
     {{ $msg }}
     <form class="container py-4"
           method="POST"
-          action="{{ (!isset($animal) || !$animal) && !$previousAnimalID
+          action="{{ $checkIfIsRegisterForm
                         ? route('register')
                         : route('edit', ['id' => $animal ?? $previousAnimalID]) }}"
         >
@@ -21,7 +26,7 @@
         @endif
 
         <div class="form-group pb-2">
-            <label for="code"><span class="danger">*</span>código</label>
+            <label for="code"><span class="danger">*</span>Código</label>
             <input type="text"
                    class="form-control"
                    id="code"
@@ -74,8 +79,8 @@
                    >
             <span class="danger">{{ $errors->first('born') ?? '' }}</span>
         </div>
-        <div class="form-group">
-            <button type="submit">{{ $buttonText }}</button>
+        <div class="form-group pt-2">
+            <button class="btn btn-success w-100" type="submit">{{ $buttonText }}</button>
         </div>
     </form>
 @endsection

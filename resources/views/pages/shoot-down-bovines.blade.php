@@ -1,4 +1,7 @@
-@extends('layouts.basic')
+@extends('layouts.basic', [
+    'introTitle' => $title,
+    'introDescription' => null
+])
 
 @section('title', $title)
 

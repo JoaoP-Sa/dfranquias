@@ -11,6 +11,13 @@
     </head>
     <body>
         @include('layouts._partials.header')
+        @component('layouts._partials.page-intro')
+            <h1>{{ $introTitle }}</h1>
+
+            @if($introDescription)
+                <p>{{ $introDescription }}</p>
+            @endif
+        @endcomponent
         @yield('content')
 
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
