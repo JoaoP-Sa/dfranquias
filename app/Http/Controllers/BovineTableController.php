@@ -3,25 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bovinos;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BovineTableController extends Controller
 {
     private $bovinos;
+    private $paginate = 10;
 
     public function __construct(Bovinos $bovinos) {
         $this->bovinos = $bovinos;
     }
-    public function showAll()
+    public function showAll(Request $request)
     {
         $title = 'Todos os Animais';
         $bovinesList = $this->bovinos
                             ->where('shooted_down', false)
-                            ->get()
-                            ->toArray();
+                            ->paginate($this->paginate);
 
-        return view('pages.all-bovines', compact('title', 'bovinesList'));
+        return view('pages.all-bovines', compact('title', 'bovinesList', 'request'));
     }
 
     public function showShootDown()
@@ -35,14 +34,12 @@ class BovineTableController extends Controller
                                       ->orWhere('milk', '<', 70)->where('food', '>', 3500)
                                       ->orWhere('weight','>', 270);
                                     })
-                            ->get()
-                            ->toArray();
+                            ->paginate($this->paginate);
 
 
         $shootedDownBovinesList = $this->bovinos
                                        ->where('shooted_down', true)
-                                       ->get()
-                                       ->toArray();
+                                       ->paginate($this->paginate);
 
         return view('pages.shoot-down-bovines', compact('title', 'aliveBovinesListToShootDown', 'shootedDownBovinesList'));
     }

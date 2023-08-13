@@ -13,14 +13,14 @@
         <tbody>
         @foreach($bovinesList as $bovine)
             <tr>
-                <td>{{ $bovine['code'] }}</td>
-                <td>{{ $bovine['milk'] }} L</td>
-                <td>{{ $bovine['food'] }} kg</td>
-                <td>{{ $bovine['weight'] }} Kg</td>
-                <td>{{ $bovine['born'] }}</td>
+                <td>{{ $bovine->code }}</td>
+                <td>{{ $bovine->milk }} L</td>
+                <td>{{ $bovine->food }} kg</td>
+                <td>{{ $bovine->weight }} Kg</td>
+                <td>{{ $bovine->born }}</td>
                 <td class="text-center">
-                    @if(!$bovine['shooted_down'])
-                    <a href="{{ route('edit', ['id' => $bovine['id']]) }}">
+                    @if(!$bovine->shooted_down)
+                    <a href="{{ route('edit', ['id' => $bovine->id]) }}">
                         <button class="btn btn-dark">
                             Editar
                         </button>
@@ -31,7 +31,7 @@
                                 class="btn btn-dark"
                                 data-bs-toggle="modal"
                                 data-bs-target="#actionModal"
-                                onclick="setModalInfo({{ $bovine['id'] }}, 'POST')"
+                                onclick="setModalInfo({{ $bovine->id }}, 'POST')"
                                 >
                             Abater
                         </button>
@@ -40,7 +40,7 @@
                             class="btn btn-dark"
                             data-bs-toggle="modal"
                             data-bs-target="#actionModal"
-                            onclick="setModalInfo({{ $bovine['id'] }},'GET', '{{ Route::currentRouteName() }}')"
+                            onclick="setModalInfo({{ $bovine->id }},'GET', '{{ Route::currentRouteName() }}')"
                             >
                         Excluir
                     </button>
@@ -54,3 +54,7 @@
         </tbody>
     @endif
 </table>
+
+<div class="table-pagination text-center">
+    {{ $bovinesList->onEachSide(1)->links() }}
+</div>

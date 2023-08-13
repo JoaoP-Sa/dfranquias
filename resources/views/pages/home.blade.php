@@ -25,15 +25,15 @@
                 <tbody>
                     <tr>
                         <td>Produção Semanal de Leite</td>
-                        <td>200 L</td>
+                        <td>{{ $milkTotal }} L</td>
                     </tr>
                     <tr>
                         <td>Consumo Semanal de Ração</td>
-                        <td>10.000 Kg</td>
+                        <td>{{ $necessaryFoodTotal }} Kg</td>
                     </tr>
                     <tr>
                         <td>Animais Jovens Com Maior Consumo Semanal de Ração</td>
-                        <td>50 Unid.</td>
+                        <td>{{ $youngHungryAnimals }} Unid.</td>
                     </tr>
                 </tbody>
             </table>
