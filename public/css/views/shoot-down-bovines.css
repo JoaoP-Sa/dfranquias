@@ -1,6 +1,33 @@
-.active {
-    background-color: rgb(130, 0, 0) !important;
+.row {
+    width: 100%;
+    margin: 0 !important;
+}
+
+.list-group {
+    padding: 0;
+}
+
+.list-group button:first-of-type {
+    border-right: 1px solid #9e9e9e;
+    border-bottom-right-radius: 5px !important;
+}
+
+.list-group button:last-of-type {
+    border-left: 1px solid #9e9e9e;
+    border-bottom-left-radius: 5px !important;
+}
+
+.list-group .active {
+    color: black;
+    font-weight: bold;
+    background-color: #fcd9d9 !important;
     border-color: transparent !important;
+}
+
+.list-group button:first-of-type, .list-group button:last-of-type {
+    border-top-color: transparent;
+    border-bottom: 1px solid #9e9e9e;
+    background-color: #d3b5b5;
 }
 
 .tab:not(.show) {
@@ -13,4 +40,12 @@
 
 .list-group-item {
     border-radius: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .list-group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+    }
 }

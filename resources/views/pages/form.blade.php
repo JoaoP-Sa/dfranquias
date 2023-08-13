@@ -74,7 +74,7 @@
             <input type="text"
                    class="form-control"
                    id="born"
-                   name="born" placeholder="Insira a Data de Nascimento do Animal"
+                   name="born" placeholder="dd/mm/YYYY"
                    value="{{ old('born') ?? $animalInfo->born ?? $previousValues['born'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('born') ?? '' }}</span>

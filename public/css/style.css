@@ -14,7 +14,7 @@ html, body {
     font-family: 'Roboto Condensed', sans-serif;
     background-color: #fcd9d9;
     font-size: 1.2rem;
-    min-width: 380px;
+    min-width: 410px;
 }
 
 header {
@@ -62,8 +62,16 @@ a {
     text-decoration: none;
 }
 
+.table {
+    overflow-x: auto;
+}
+
+th, td {
+    vertical-align: middle;
+}
+
 .danger {
-    color: rgb(228, 91, 91);
+    color: #e45b5b;
     font-weight: bold;
 }
 
@@ -96,10 +104,9 @@ a {
     header .nav {
         justify-content: center !important;
     }
-}
 
-/* background-colors */
-
-.bg-dark-blue {
-    background-color: #0e0e0e;
+    table .btn {
+        font-size: .8rem;
+        padding: .4rem;
+    }
 }

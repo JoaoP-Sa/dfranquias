@@ -27,7 +27,7 @@
                 de ração. É importante ressaltar que os dados listados são referentes ao período de
                 uma semana, e atendem aos seguintes critérios:
 
-                <ul class="list-criteria">
+                <ul>
                     <li>Quantidade total de leite produzido por semana</li>
                     <li>Quantidade total de ração necessária por semana</li>
                     <li>Quantidade total de animais que tenham até 1 ano de idade e que
@@ -54,7 +54,7 @@
         </div>
     </section>
 
-    <section class="bg-dark-blue text-white py-3">
+    <section class="bg-dark text-white py-3">
         <div class="container">
             <p>
                 Os dados exibidos acima são alterados automaticamente ao ser realizada

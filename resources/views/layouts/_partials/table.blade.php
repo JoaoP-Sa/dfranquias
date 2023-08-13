@@ -7,6 +7,9 @@
                 <th>Ração</th>
                 <th>Peso</th>
                 <th>Nascimento</th>
+                @if(isset($shootedDown))
+                    <th>Óbito</th>
+                @endif
                 <th class="text-center">Ações</th>
             </tr>
         </thead>
@@ -17,18 +20,21 @@
                 <td>{{ $bovine->milk }} L</td>
                 <td>{{ $bovine->food }} kg</td>
                 <td>{{ $bovine->weight }} Kg</td>
-                <td>{{ $bovine->born }}</td>
+                <td>{{ date('d/m/Y',strtotime($bovine->born)) }}</td>
+                @if($bovine->shooted_down)
+                    <td>{{ date('d/m/Y',strtotime($bovine->updated_at)) }}</td>
+                @endif
                 <td class="text-center">
                     @if(!$bovine->shooted_down)
                     <a href="{{ route('edit', ['id' => $bovine->id]) }}">
-                        <button class="btn btn-dark">
+                        <button class="btn btn-primary text-white my-1">
                             Editar
                         </button>
                     </a>
                     @endif
                     @if(isset($shootDown))
                         <button type="button"
-                                class="btn btn-dark"
+                                class="btn btn-secondary my-1"
                                 data-bs-toggle="modal"
                                 data-bs-target="#actionModal"
                                 onclick="setModalInfo({{ $bovine->id }}, 'POST')"
@@ -37,7 +43,7 @@
                         </button>
                     @endif
                     <button type="button"
-                            class="btn btn-dark"
+                            class="btn btn-warning text-white my-1"
                             data-bs-toggle="modal"
                             data-bs-target="#actionModal"
                             onclick="setModalInfo({{ $bovine->id }},'GET', '{{ Route::currentRouteName() }}')"

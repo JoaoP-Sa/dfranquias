@@ -16,9 +16,8 @@ class BovineTableController extends Controller
     public function showAll(Request $request)
     {
         $title = 'Todos os Animais';
-        $bovinesList = $this->bovinos
-                            ->where('shooted_down', false)
-                            ->paginate($this->paginate);
+        $bovinesList = $this->bovinos->where('shooted_down', false)
+                                     ->paginate($this->paginate);
 
         return view('pages.all-bovines', compact('title', 'bovinesList', 'request'));
     }
@@ -41,6 +40,9 @@ class BovineTableController extends Controller
                                        ->where('shooted_down', true)
                                        ->paginate($this->paginate);
 
-        return view('pages.shoot-down-bovines', compact('title', 'aliveBovinesListToShootDown', 'shootedDownBovinesList'));
+        $allShootedDownBovinesWeight = $this->bovinos->where('shooted_down', true)
+                                                     ->sum('weight');
+
+        return view('pages.shoot-down-bovines', compact('title', 'aliveBovinesListToShootDown', 'shootedDownBovinesList', 'allShootedDownBovinesWeight'));
     }
 }
