@@ -57,11 +57,11 @@
     <section class="bg-dark text-white py-3">
         <div class="container">
             <p>
-                Os dados exibidos acima são alterados automaticamente ao ser realizada
-                qualquer alteração ou mesmo exclusão em algum animal cadastrado no sistema. Vale
-                ressaltar que no sistema todos os dados quantitativos são semanais, ou seja, as
-                quantidades são baseadas no intervalo de uma semana, Ex: Quantia de ração consumida
-                por semana, Quantia de leite produzida por semana, etc.
+                Os dados exibidos acima e nas demais tabelas do sistema são alterados automaticamente
+                ao ser realizado algum registro, alteração ou mesmo exclusão em algum animal
+                cadastrado no sistema. Vale ressaltar que no sistema todos os dados quantitativos
+                são semanais, ou seja, as quantidades são baseadas no intervalo de uma semana,
+                Ex: Quantia de ração consumida por semana, Quantia de leite produzida por semana, etc.
             </p>
         </div>
     </section>
