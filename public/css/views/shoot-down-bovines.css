@@ -7,6 +7,10 @@
     padding: 0;
 }
 
+.list-group a {
+    width: 100%;
+}
+
 .list-group button:first-of-type {
     border-right: 1px solid #9e9e9e;
     border-bottom-right-radius: 5px !important;

@@ -13,7 +13,7 @@
 
 @section('content')
     {{ $msg }}
-    <form class="container py-4"
+    <form class="container py-4 my-4 bg-white rounded"
           method="POST"
           action="{{ $checkIfIsRegisterForm
                         ? route('register')
@@ -27,11 +27,20 @@
 
         <div class="form-group pb-2">
             <label for="code"><span class="danger">*</span>Código</label>
+            <span data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-html="true"
+                  title="O código de cada animal deve ser <strong>ÚNICO</strong> e conter 2
+                  letras e 4 números, Ex: aa1111"
+                >
+                <i class="fa-regular fa-circle-question cursor-pointer"></i>
+            </span>
             <input type="text"
                    class="form-control"
                    id="code"
                    name="code"
                    placeholder="Insira o Código do Animal"
+                   data-mask="AA0000"
                    value="{{ old('code') ?? $animalInfo->code ?? $previousValues['code'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('code') ?? '' }}</span>
@@ -42,7 +51,8 @@
                    class="form-control"
                    id="milk"
                    name="milk"
-                   placeholder="Insira a Produção de Leite Semanal do Animal"
+                   placeholder="Insira a Produção de Leite Semanal"
+                   data-mask="000"
                    value="{{ old('milk') ?? $animalInfo->milk ?? $previousValues['milk'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('milk') ?? '' }}</span>
@@ -53,7 +63,8 @@
                    class="form-control"
                    id="food"
                    name="food"
-                   placeholder="Insira o Consumo de Ração Semanal do Animal"
+                   placeholder="Insira o Consumo de Ração Semanal"
+                   data-mask="000"
                    value="{{ old('food') ?? $animalInfo->food ?? $previousValues['food'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('food') ?? '' }}</span>
@@ -64,7 +75,8 @@
                    class="form-control"
                    id="weight"
                    name="weight"
-                   placeholder="Insira o Peso do Animal (Kg)"
+                   placeholder="Insira o Peso (Kg)"
+                   data-mask="0000"
                    value="{{ old('weight') ?? $animalInfo->weight ?? $previousValues['weight'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('weight') ?? '' }}</span>
@@ -75,7 +87,11 @@
                    class="form-control"
                    id="born"
                    name="born" placeholder="dd/mm/YYYY"
-                   value="{{ old('born') ?? $animalInfo->born ?? $previousValues['born'] ?? '' }}"
+                   data-mask="00/00/0000"
+                   value="{{ old('born') ??
+                             ($animal ? date('d/m/Y',strtotime($animalInfo->born)) : '') ??
+                             $previousValues['born'] ??
+                             '' }}"
                    >
             <span class="danger">{{ $errors->first('born') ?? '' }}</span>
         </div>

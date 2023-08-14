@@ -14,7 +14,7 @@ html, body {
     font-family: 'Roboto Condensed', sans-serif;
     background-color: #fcd9d9;
     font-size: 1.2rem;
-    min-width: 410px;
+    min-width: 340px;
 }
 
 header {
@@ -60,6 +60,14 @@ h1 {
 a {
     color: white;
     text-decoration: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.table-content {
+    overflow-x: auto;
 }
 
 .table {

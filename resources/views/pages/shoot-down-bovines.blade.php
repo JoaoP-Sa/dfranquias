@@ -16,20 +16,24 @@
     <section class="pb-4">
                 <div class="row text-center">
                     <div class="list-group d-flex flex-row">
-                        <button class="list-group-item list-group-item-action text-center active"
-                                data-bs-toggle="tab"
-                                data-bs-target="#shoot-bovines"
-                                type="button"
+                        <a href="{{ route('shoot-down-bovines', ['tab' => 'para-abater']) }}">
+                            <button class="list-group-item list-group-item-action text-center {{ request()->query('tab') === 'para-abater' ? 'active' : '' }}"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#shoot-bovines"
+                                    type="button"
+                                >
+                                    Animais Para Abate
+                            </button>
+                        </a>
+                        <a href="{{ route('shoot-down-bovines', ['tab' => 'abatidos']) }}">
+                            <button class="list-group-item list-group-item-action text-center {{ request()->query('tab') === 'abatidos' ? 'active' : '' }}"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#shoot-bovines-report"
+                                    type="button"
                             >
-                                Animais Para Abate
-                        </button>
-                        <button class="list-group-item list-group-item-action text-center"
-                                data-bs-toggle="tab"
-                                data-bs-target="#shoot-bovines-report"
-                                type="button"
-                        >
-                                Animais Abatidos
-                        </button>
+                                    Animais Abatidos
+                            </button>
+                        </a>
                     </div>
                 </div>
 

@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('shoot-down-bovines') }}"
+                        <a href="{{ route('shoot-down-bovines', ['tab' => 'para-abater']) }}"
                            class="nav-link text-white {{ Route::currentRouteName() === 'shoot-down-bovines' ? 'active' : '' }}"
                         >
                             Abate

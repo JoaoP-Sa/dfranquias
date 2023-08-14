@@ -4,9 +4,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{ asset('img/icon.png') }}">
+
+        {{-- fontawesome css --}}
+        <link href="{{ asset('css/all.min.css') }}" rel="stylesheet"/>
+
+        {{-- bootstrap css --}}
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
+
+        {{-- global css --}}
         <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+
+        {{-- specific screen css --}}
         @yield('style-file')
+
         <title>Gestão Bovinos - @yield('title')</title>
     </head>
     <body>
@@ -20,8 +30,17 @@
         @endcomponent
         @yield('content')
 
+        {{-- fontawesome js --}}
+        <script src="{{ asset('js/all.min.js') }}"></script>
+
+        {{-- bootstrap js --}}
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+        {{-- jquery e jquery-mask --}}
+        <script src="{{ asset('js/jquery.js') }}"></script>
+        <script src="{{ asset('js/jquery.mask.js') }}"></script>
+
         <script>
             const modalTitleEl = document.getElementById('modalTitle');
             const confirmModalEl = document.getElementById('confirmModal');
@@ -32,8 +51,6 @@
                 confirmModalEl.method = method;
                 confirmModalEl.action =
                     `${window.location.origin}/${animalID}/${method === 'GET' ? 'excluir' : 'abater'}-bovino${routeName ? '/'+routeName : ''}`;
-
-                console.log(confirmModalEl);
             }
         </script>
     </body>
