@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bovinos;
-use Carbon\Carbon;
+use App\Providers\BovineCRUDServiceProvider;
 use Illuminate\Http\Request;
 
 class BovineCRUDController extends Controller
 {
     private $bovinos;
+    private $bovineCRUDServiceProvider;
 
-    public function __construct(Bovinos $bovinos) {
+    public function __construct(Bovinos $bovinos, BovineCRUDServiceProvider $bovineCRUDServiceProvider) {
         $this->bovinos = $bovinos;
+        $this->bovineCRUDServiceProvider = $bovineCRUDServiceProvider;
     }
 
     /**
@@ -19,12 +21,11 @@ class BovineCRUDController extends Controller
      */
     public function getForm(Request $request, $animal = null)
     {
-        $title = $animal ? 'Edição' : 'Cadastro';
-        $buttonText = $animal ? 'Atualizar' : 'Adicionar';
+        $title = $this->bovineCRUDServiceProvider->getTitle($animal);
+        $buttonText = $this->bovineCRUDServiceProvider->getButtonText($animal);
 
         if (!$animal) {
-            $request->session()->forget('previous_values');
-            $request->session()->forget('animal_id');
+            $this->bovineCRUDServiceProvider->clearSessionAnimalValues($request);
         }
 
         $variables = compact('animal', 'title', 'buttonText');
@@ -41,40 +42,25 @@ class BovineCRUDController extends Controller
         $convertedDate = implode('-', array_reverse(explode('/', $request->born)));
         $request->merge(['born' => $convertedDate]);
 
-        $today = Carbon::now()->toDateString();
-
-        $rules = [
-            'code' => 'required|size:6|regex:/^[a-zA-Z]{2}\d{4}/i',
-            'milk' => 'numeric|nullable',
-            'food' => 'numeric|nullable',
-            'weight' => 'required|numeric',
-            'born' => 'required|date|before_or_equal:'.$today,
-        ];
-
-        $feedback = [
-            'required' => 'Este campo deve ser preenchido',
-            'size' => 'Este campo deve conter 6 dígitos',
-            'regex' => 'Este campo está com o formato inválido',
-            'numeric' => 'Este campo deve conter um valor numérico',
-            'date' => 'Este campo deve ser uma data válida',
-            'before_or_equal' => 'A data inserida deve ser anterior ou igual a data de hoje'
-        ];
+        $rules = $this->bovineCRUDServiceProvider->getRules();
+        $feedback = $this->bovineCRUDServiceProvider->getFeedback();
 
         $request->validate($rules, $feedback);
         $animal = $request->id;
 
-        $someAnimalWithSameCode = $this->bovinos->where('code',$request->code)->get()->toArray();
+        $someAnimalWithSameCode = $this->bovinos->where('code', $request->code)->get()->toArray();
+        $codeIsRepeated = count($someAnimalWithSameCode)
+            && $someAnimalWithSameCode[0]['id'] != $animal;
 
-        if (count($someAnimalWithSameCode) && $someAnimalWithSameCode[0]['id'] != $animal) {
-            $title = $animal ? 'Edição' : 'Cadastro';
+        if ($codeIsRepeated) {
+            $title = $this->bovineCRUDServiceProvider->getTitle($animal);
+            $buttonText = $this->bovineCRUDServiceProvider->getButtonText($animal);
+
             $msg = 'Já existe um animal cadastrado com este código. Por favor insira outro código.';
             $status = 'danger';
-            $buttonText = $animal ? 'Atualizar' : 'Adicionar';
 
             $variables = compact('title', 'msg', 'status', 'buttonText');
-
-            $request->session()->put('previous_values', $request->all());
-            $request->session()->put('animal_id', $animal);
+            $this->bovineCRUDServiceProvider->setSessionAnimalValues($request);
 
             return view('pages.form', $variables);
         }
@@ -86,15 +72,16 @@ class BovineCRUDController extends Controller
             return redirect()->route('all-bovines');
         }
 
-        $insertValues = array_filter($request->all(), function($value) { return $value !== null; });
+        $insertValues = $this->bovineCRUDServiceProvider->getTreatedInsertValues($request);
         $this->bovinos->create($insertValues);
 
-        $title = 'Cadastro';
-        $buttonText = 'Adicionar';
+        $title = $this->bovineCRUDServiceProvider->getTitle($animal);
+        $buttonText = $this->bovineCRUDServiceProvider->getButtonText($animal);
+
         $msg = 'O animal foi registrado com sucesso. Agora podemos visualiza-lo na página de animais
                 vivos, ou podemos inserir mais algum outro animal se preferir.';
-        $status = 'success';
 
+        $status = 'success';
         $variables = compact('title', 'msg', 'status', 'buttonText');
 
         return view('pages.form', $variables);
