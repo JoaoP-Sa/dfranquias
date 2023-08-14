@@ -95,6 +95,20 @@ th, td {
     color: black;
 }
 
+/* bootstrap alert remake */
+
+.alert-success {
+    background-color: rgb(126, 200, 126);
+    border-color: transparent;
+    border-radius: 0;
+}
+
+.alert-danger {
+    background-color: rgb(241, 168, 168);
+    border-color: transparent;
+    border-radius: 0;
+}
+
 @media screen and (max-width: 768px) {
     html, body {
         font-size: 1rem;

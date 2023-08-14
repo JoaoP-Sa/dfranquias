@@ -48,9 +48,26 @@
             const setModalInfo = (animalID, method, routeName = null) => {
                 modalTitleEl.innerText = method === 'GET' ? 'Excluir' : 'Abater';
 
+                const route = method === 'GET' ? 'excluir' : 'abater';
+                const checkIfHasrouteToRedirect = routeName ? '/'+routeName : '';
+
                 confirmModalEl.method = method;
                 confirmModalEl.action =
-                    `${window.location.origin}/${animalID}/${method === 'GET' ? 'excluir' : 'abater'}-bovino${routeName ? '/'+routeName : ''}`;
+                    `${window.location.origin}/${animalID}/${route}-bovino${checkIfHasrouteToRedirect}`;
+            }
+
+
+            const bornDateInput = document.getElementById('born');
+
+            if(bornDateInput && bornDateInput.value) {
+                const bornDate = bornDateInput.value;
+                const treatedBornDate =
+                    `${bornDate.replace(/\//g, '')
+                        .slice(6, 8)}/${bornDate.replace(/\//g, '')
+                        .slice(4, 6)}/${bornDate.replace(/\//g, '')
+                        .slice(0, 4)}`;
+
+                bornDateInput.value = treatedBornDate;
             }
         </script>
     </body>

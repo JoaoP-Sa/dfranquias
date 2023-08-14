@@ -12,7 +12,12 @@
 @section('title', $title)
 
 @section('content')
-    {{ $msg }}
+    @if(isset($msg))
+        <div class="alert alert-{{ $status }} text-center" role="alert">
+            {{ $msg }}
+        </div>
+    @endif
+
     <form class="container py-4 my-4 bg-white rounded"
           method="POST"
           action="{{ $checkIfIsRegisterForm
@@ -88,10 +93,7 @@
                    id="born"
                    name="born" placeholder="dd/mm/YYYY"
                    data-mask="00/00/0000"
-                   value="{{ old('born') ??
-                             ($animal ? date('d/m/Y',strtotime($animalInfo->born)) : '') ??
-                             $previousValues['born'] ??
-                             '' }}"
+                   value="{{ old('born') ?? $animalInfo->born ?? $previousValues['born'] ?? '' }}"
                    >
             <span class="danger">{{ $errors->first('born') ?? '' }}</span>
         </div>

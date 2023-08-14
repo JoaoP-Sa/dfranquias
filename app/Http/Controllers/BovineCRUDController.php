@@ -14,11 +14,6 @@ class BovineCRUDController extends Controller
         $this->bovinos = $bovinos;
     }
 
-    private function returnView($variables)
-    {
-        return view('pages.form', $variables);
-    }
-
     /**
      * @param int $animal
      */
@@ -26,24 +21,26 @@ class BovineCRUDController extends Controller
     {
         $title = $animal ? 'Edição' : 'Cadastro';
         $buttonText = $animal ? 'Atualizar' : 'Adicionar';
-        $msg = '';
 
         if (!$animal) {
             $request->session()->forget('previous_values');
             $request->session()->forget('animal_id');
         }
 
-        $variables = compact('animal', 'title', 'msg', 'buttonText');
+        $variables = compact('animal', 'title', 'buttonText');
 
         if ($animal) {
             $animalInfo = $this->bovinos->find($animal);
             $variables['animalInfo'] = $animalInfo;
         }
 
-        return $this->returnView($variables);
+        return view('pages.form', $variables);
     }
 
     public function sendInfo(Request $request) {
+        $convertedDate = implode('-', array_reverse(explode('/', $request->born)));
+        $request->merge(['born' => $convertedDate]);
+
         $today = Carbon::now()->toDateString();
 
         $rules = [
@@ -70,15 +67,16 @@ class BovineCRUDController extends Controller
 
         if (count($someAnimalWithSameCode) && $someAnimalWithSameCode[0]['id'] != $animal) {
             $title = $animal ? 'Edição' : 'Cadastro';
-            $msg = 'Já existe um animal cadastrado com este código.';
+            $msg = 'Já existe um animal cadastrado com este código. Por favor insira outro código.';
+            $status = 'danger';
             $buttonText = $animal ? 'Atualizar' : 'Adicionar';
 
-            $variables = compact('title', 'msg', 'buttonText');
+            $variables = compact('title', 'msg', 'status', 'buttonText');
 
             $request->session()->put('previous_values', $request->all());
             $request->session()->put('animal_id', $animal);
 
-            return $this->returnView($variables);
+            return view('pages.form', $variables);
         }
 
         if($animal){
@@ -93,27 +91,34 @@ class BovineCRUDController extends Controller
 
         $title = 'Cadastro';
         $buttonText = 'Adicionar';
-        $msg = 'O animal foi registrado com sucesso.';
+        $msg = 'O animal foi registrado com sucesso. Agora podemos visualiza-lo na página de animais
+                vivos, ou podemos inserir mais algum outro animal se preferir.';
+        $status = 'success';
 
-        $variables = compact('title', 'msg', 'buttonText');
+        $variables = compact('title', 'msg', 'status', 'buttonText');
 
-        return $this->returnView($variables);
+        return view('pages.form', $variables);
     }
 
     /**
      * @param int $animal
      */
-    public function shootDownBovine(Request $request, $animal) {
+    public function shootDownBovine($animal) {
         $this->bovinos->find($animal)->update(['shooted_down' => true]);
 
-        return redirect()->route('shoot-down-bovines');
+        return redirect()->route('shoot-down-bovines', ['tab' => 'para-abater']);
     }
 
     /**
      * @param int $animal
      */
     public function deleteBovine(Request $request, $animal) {
+        $route = $request->route_name;
         $this->bovinos->destroy($animal);
+
+        if ($route === 'shoot-down-bovines') {
+            return redirect()->route($request->route_name, ['tab' => 'para-abater']);
+        }
 
         return redirect()->route($request->route_name);
     }

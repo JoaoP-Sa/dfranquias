@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="container py-4">
-                    <div id="shoot-bovines" class="active show tab">
+                    <div id="shoot-bovines" class="tab {{ request()->query('tab') === 'para-abater' ? 'active show' : '' }}">
                         <p>
                             Abaixo temos uma tabela que exibe os animais que podem ser abatidos.
                             Os animais listados atendem ao algum dos seguintes critérios de abate:
@@ -55,7 +55,7 @@
                         @include('layouts._partials.table', ['bovinesList' => $aliveBovinesListToShootDown, 'shootDown' => true])
                     </div>
 
-                    <div id="shoot-bovines-report" class="tab">
+                    <div id="shoot-bovines-report" class="tab {{ request()->query('tab') === 'abatidos' ? 'active show' : '' }}">
                         <p>
                             Abaixo temos uma tabela que exibe os animais que já foram abatidos.
                             Os animais listados atendiam ao algum dos critérios mencionados na
