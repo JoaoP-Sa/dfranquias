@@ -42,9 +42,9 @@ class BovineRepository
         $aliveBovinesListToShootDown = $this->bovinos->where('shooted_down', false)
                                                      ->where(function($query) {
                                                          $query->where('born', '<', now()->subYears(5)->toDateTimeString())
-                                                             ->where('milk', '<', 40)
-                                                             ->orWhere('milk', '<', 70)->where('food', '>', 3500)
-                                                             ->orWhere('weight','>', 270);
+                                                               ->orwhere('milk', '<', 40)
+                                                               ->orWhere('milk', '<', 70)->where('food', '>', 350)
+                                                               ->orWhere('weight','>', 270);
                                                              })
                                                      ->paginate($this->paginate);
 
