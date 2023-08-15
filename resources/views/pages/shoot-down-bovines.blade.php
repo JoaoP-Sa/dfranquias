@@ -49,6 +49,7 @@
                                 <li>Produz menos de 70 litros de leite por semana e ingere mais de
                                     50 quilos de ração por dia (totalizando mais de 350 quilos por
                                     semana)</li>
+                                <li>Pesa mais que 18 arrobas (270 Kg)</li>
                             </ul>
                         </p>
 
