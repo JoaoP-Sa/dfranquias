@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class BovineTableController extends Controller
 {
+    public function index(BovineRepository $bovineRepository) {
+        $tableData = $bovineRepository->getHomePageTableData();
+
+        return view('pages.home', $tableData);
+    }
+
     public function showAll(Request $request, BovineRepository $bovineRepository)
     {
         $title = 'Todos os Animais';

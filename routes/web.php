@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\BovineCRUDController;
 use App\Http\Controllers\BovineTableController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [BovineTableController::class, 'index'])->name('home');
 Route::get('/todos', [BovineTableController::class, 'showAll'])->name('all-bovines');
 Route::get('/abate', [BovineTableController::class, 'showShootDown'])->name('shoot-down-bovines');
 
